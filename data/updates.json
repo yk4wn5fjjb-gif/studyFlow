@@ -1,0 +1,38 @@
+{
+  "checkedAt": "2026-09-02T20:30:50.780Z",
+  "source": "https://math.fon.bg.ac.rs/aktivnosti",
+  "updates": [
+    {
+      "id": "944",
+      "subject": "Matematika 2",
+      "title": "Пријаве за полагање усмених испита из Математике 2 - септембарски испитни рок",
+      "date": "01.09.2026.",
+      "deadline": "најкасније до 02.09.",
+      "url": "https://math.fon.bg.ac.rs/aktivnosti/944"
+    },
+    {
+      "id": "943",
+      "subject": "Matematika 1",
+      "title": "Пријаве за полагање усмених испита из Математике 1 - септембарски испитни рок",
+      "date": "01.09.2026.",
+      "deadline": "најкасније до 01.09.",
+      "url": "https://math.fon.bg.ac.rs/aktivnosti/943"
+    },
+    {
+      "id": "940",
+      "subject": "Diskretne matematičke strukture",
+      "title": "Пријаве за полагање усменог испита из Дискретних математичких структура -септембарски испитни рок",
+      "date": "29.08.2026.",
+      "deadline": "најкасније до 29.08.",
+      "url": "https://math.fon.bg.ac.rs/aktivnosti/940"
+    },
+    {
+      "id": "936",
+      "subject": "Matematika 1",
+      "title": "Пријаве за полагање писменог испита из Математике 1 - септембарски испитни рок",
+      "date": "26.08.2026.",
+      "deadline": "најкасније до 27.08.",
+      "url": "https://math.fon.bg.ac.rs/aktivnosti/936"
+    }
+  ]
+}
