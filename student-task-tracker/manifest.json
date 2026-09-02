@@ -1,0 +1,18 @@
+{
+  "name": "StudyFlow Student Task Tracker",
+  "short_name": "StudyFlow",
+  "description": "A simple offline task tracker for students.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#111321",
+  "theme_color": "#171a2b",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

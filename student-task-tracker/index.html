@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#171a2b">
+  <meta name="description" content="A simple offline student task tracker.">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <link rel="stylesheet" href="styles.css">
+  <title>StudyFlow</title>
+</head>
+<body>
+  <main class="app-shell">
+    <header class="app-header">
+      <div>
+        <p class="date-label" id="today-label"></p>
+        <h1>StudyFlow</h1>
+      </div>
+      <div class="progress-ring" id="progress-ring" aria-label="Daily task progress">
+        <span id="progress-value">0%</span>
+      </div>
+    </header>
+
+    <section class="summary" aria-label="Task summary">
+      <article><strong id="open-count">0</strong><span>Open</span></article>
+      <article><strong id="due-count">0</strong><span>Due today</span></article>
+      <article><strong id="done-count">0</strong><span>Done</span></article>
+    </section>
+
+    <section class="monitor-card" aria-labelledby="monitor-heading">
+      <div class="monitor-heading-row">
+        <div>
+          <p class="date-label">FON · Katedra za matematiku</p>
+          <h2 id="monitor-heading">Prijave za ispite</h2>
+        </div>
+        <button id="refresh-updates" class="refresh-button" type="button" aria-label="Osveži obaveštenja">↻</button>
+      </div>
+      <p class="monitor-note">Pratimo objave koje sadrže koren „prijav“ i prikazujemo samo prijave objavljene u poslednjih 30 dana.</p>
+      <details class="subject-picker">
+        <summary>Predmeti koje pratim <span id="subject-count"></span></summary>
+        <div id="subject-options" class="subject-options"></div>
+      </details>
+      <div id="updates-status" class="updates-status">Učitavanje obaveštenja…</div>
+      <ul id="updates-list" class="updates-list"></ul>
+    </section>
+
+    <section class="controls">
+      <div class="filters" role="group" aria-label="Filter tasks">
+        <button class="filter active" type="button" data-filter="all">All</button>
+        <button class="filter" type="button" data-filter="today">Today</button>
+        <button class="filter" type="button" data-filter="open">Open</button>
+        <button class="filter" type="button" data-filter="done">Done</button>
+      </div>
+    </section>
+
+    <section aria-labelledby="task-heading">
+      <div class="list-heading">
+        <h2 id="task-heading">Your tasks</h2>
+        <button id="clear-done" class="text-button" type="button">Clear done</button>
+      </div>
+      <ul id="task-list" class="task-list"></ul>
+      <div id="empty-state" class="empty-state" hidden>
+        <span>✓</span>
+        <h3>Nothing here</h3>
+        <p>Add a task or choose another filter.</p>
+      </div>
+    </section>
+  </main>
+
+  <button id="open-form" class="floating-button" type="button" aria-label="Add a task">+</button>
+
+  <dialog id="task-dialog">
+    <form id="task-form" method="dialog">
+      <div class="dialog-heading">
+        <div>
+          <p class="date-label">New task</p>
+          <h2>Add to your plan</h2>
+        </div>
+        <button id="close-form" class="close-button" type="button" aria-label="Close">×</button>
+      </div>
+
+      <label>
+        Task name
+        <input id="task-title" name="title" type="text" maxlength="80" placeholder="Finish database assignment" required>
+      </label>
+
+      <label>
+        Subject
+        <input id="task-subject" name="subject" type="text" maxlength="40" placeholder="Information Systems">
+      </label>
+
+      <div class="form-row">
+        <label>
+          Due date
+          <input id="task-date" name="date" type="date">
+        </label>
+        <label>
+          Priority
+          <select id="task-priority" name="priority">
+            <option value="normal">Normal</option>
+            <option value="high">High</option>
+            <option value="low">Low</option>
+          </select>
+        </label>
+      </div>
+
+      <button class="primary-button" type="submit">Add task</button>
+    </form>
+  </dialog>
+
+  <template id="task-template">
+    <li class="task-item">
+      <button class="check-button" type="button" aria-label="Mark task complete"></button>
+      <div class="task-copy">
+        <strong class="task-title"></strong>
+        <p><span class="task-subject"></span><span class="separator">·</span><time class="task-date"></time></p>
+      </div>
+      <span class="priority-dot" aria-label="Priority"></span>
+      <button class="delete-button" type="button" aria-label="Delete task">×</button>
+    </li>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
