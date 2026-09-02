@@ -3,6 +3,8 @@ import { readFile, writeFile } from 'node:fs/promises';
 const SOURCE_URL = 'https://math.fon.bg.ac.rs/aktivnosti';
 const OUTPUT_FILE = new URL('../data/updates.json', import.meta.url);
 const REGISTRATION_WORD = /(prijav|пријав)/iu;
+const ONESIGNAL_APP_ID = process.env.ONESIGNAL_APP_ID;
+const ONESIGNAL_API_KEY = process.env.ONESIGNAL_API_KEY;
 
 const SUBJECT_PATTERNS = [
   ['Matematika 1', /(matematik[ae]\s*1|математик[ае]\s*1)/iu],
@@ -69,6 +71,8 @@ for (const [, path, id, rawTitle] of anchors) {
 
 let existing = { updates: [] };
 try { existing = JSON.parse(await readFile(OUTPUT_FILE, 'utf8')); } catch {}
+const knownIds = new Set(existing.updates.map((item) => item.id));
+const newUpdates = candidates.filter((item) => !knownIds.has(item.id));
 const merged = [...candidates, ...existing.updates.filter((old) => !candidates.some((item) => item.id === old.id))]
   .slice(0, 100);
 
@@ -77,5 +81,32 @@ await writeFile(OUTPUT_FILE, `${JSON.stringify({
   source: SOURCE_URL,
   updates: merged,
 }, null, 2)}\n`);
+
+if (newUpdates.length && ONESIGNAL_APP_ID && ONESIGNAL_API_KEY) {
+  for (const update of newUpdates) {
+    const notificationResponse = await fetch('https://api.onesignal.com/notifications', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Key ${ONESIGNAL_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        app_id: ONESIGNAL_APP_ID,
+        target_channel: 'push',
+        included_segments: ['Subscribed Users'],
+        headings: { en: `Nova prijava · ${update.subject}` },
+        contents: { en: update.title },
+        web_url: update.url,
+        name: `StudyFlow registration ${update.id}`,
+      }),
+    });
+    if (!notificationResponse.ok) {
+      throw new Error(`OneSignal returned ${notificationResponse.status}: ${await notificationResponse.text()}`);
+    }
+    console.log(`Sent notification for update ${update.id}.`);
+  }
+} else if (newUpdates.length) {
+  console.log(`Found ${newUpdates.length} new update(s), but OneSignal credentials are not configured.`);
+}
 
 console.log(`Saved ${merged.length} registration updates.`);
