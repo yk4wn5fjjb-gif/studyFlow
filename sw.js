@@ -1,4 +1,6 @@
-const CACHE_NAME = 'studyflow-v5';
+importScripts("https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js");
+
+const CACHE_NAME = 'studyflow-v6';
 const APP_FILES = ['./', './index.html', './styles.css', './app.js', './manifest.json', './icon.svg', './data/updates.json'];
 
 self.addEventListener('install', (event) => {
