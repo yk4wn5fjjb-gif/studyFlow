@@ -18,6 +18,9 @@ jobs:
           node-version: '22'
       - name: Check department website
         run: node --use-system-ca scripts/check-updates.mjs
+        env:
+          ONESIGNAL_APP_ID: a3217828-5fbb-4f4f-a902-cccc4bbb3f88
+          ONESIGNAL_API_KEY: ${{ secrets.ONESIGNAL_API_KEY }}
       - name: Save new updates
         run: |
           git config user.name "studyflow-bot"
