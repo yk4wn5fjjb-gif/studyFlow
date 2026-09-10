@@ -1,7 +1,15 @@
 {
-  "checkedAt": "2026-09-10T07:15:53.283Z",
+  "checkedAt": "2026-09-10T07:43:35.348Z",
   "source": "https://math.fon.bg.ac.rs/aktivnosti",
   "updates": [
+    {
+      "id": "951",
+      "subject": "Matematika 1",
+      "title": "Пријаве за полагање писменог испита из Математике 1 - октобарски испитни рок",
+      "date": "10.09.2026.",
+      "deadline": "најкасније до 10.09.",
+      "url": "https://math.fon.bg.ac.rs/aktivnosti/951"
+    },
     {
       "id": "948",
       "subject": "Matematika 2",
